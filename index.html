@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustainable Living</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sustainability Tracker</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Sustainable Living Categories</h2>
-    <div class="container">
-        <div class="box" onclick="showInfo('Travel & Transportation')">Travel & Transportation</div>
-        <div class="box" onclick="showInfo('Home & Energy Use')">Home & Energy Use</div>
-        <div class="box" onclick="showInfo('Food & Diet')">Food & Diet</div>
-        <div class="box" onclick="showInfo('Workplace & Study')">Workplace & Study</div>
-        <div class="box" onclick="showInfo('Water Conservation')">Water Conservation</div>
-        <div class="box" onclick="showInfo('Waste Management')">Waste Management</div>
-        <div class="box" onclick="showInfo('Nature & Outdoor Activities')">Nature & Outdoor Activities</div>
-        <div class="box" onclick="showInfo('Shopping & Consumption')">Shopping & Consumption</div>
+  <div class="container">
+    <h1>Sustainability Tracker</h1>
+    <div class="category-container" id="categories">
+      <!-- Categories will be generated dynamically -->
     </div>
-    
-    <div id="info" class="info-box"></div>
-    <button id="submit-btn" class="submit-btn" disabled onclick="submitData()">Submit</button>
-
-    <div id="results-screen" style="display: none;">
-        <h3>Results</h3>
-        <div id="points-box" class="points-box"></div>
-        <div id="streak-box" class="streak-box"></div>
-        <div id="weekly-box" class="weekly-box"></div>
+    <div class="daily-streak">
+      <p>Daily Streak: <span id="streak">0</span> days</p>
     </div>
+    <button id="submit-btn" disabled>Submit</button>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
