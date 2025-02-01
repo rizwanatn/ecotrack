@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Living</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Sustainable Living Categories</h2>
+    <div class="container">
+        <div class="box" onclick="showInfo('Travel & Transportation')">Travel & Transportation</div>
+        <div class="box" onclick="showInfo('Home & Energy Use')">Home & Energy Use</div>
+        <div class="box" onclick="showInfo('Food & Diet')">Food & Diet</div>
+        <div class="box" onclick="showInfo('Workplace & Study')">Workplace & Study</div>
+        <div class="box" onclick="showInfo('Water Conservation')">Water Conservation</div>
+        <div class="box" onclick="showInfo('Waste Management')">Waste Management</div>
+        <div class="box" onclick="showInfo('Nature & Outdoor Activities')">Nature & Outdoor Activities</div>
+        <div class="box" onclick="showInfo('Shopping & Consumption')">Shopping & Consumption</div>
+    </div>
+    
+    <div id="info" class="info-box"></div>
+    <button id="submit-btn" class="submit-btn" disabled onclick="submitData()">Submit</button>
+
+    <div id="results-screen" style="display: none;">
+        <h3>Results</h3>
+        <div id="points-box" class="points-box"></div>
+        <div id="streak-box" class="streak-box"></div>
+        <div id="weekly-box" class="weekly-box"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
