@@ -23,34 +23,39 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Call this once to initialize the database (uncomment for the first time)
+# Uncomment this line to initialize the database once
 # init_db()
 
 @app.route('/submit_actions', methods=['POST'])
 def submit_actions():
-    # Get the data from the frontend (the selected actions and points)
-    data = request.json
-    user_id = data['user_id']
-    actions = data['actions']  # List of actions (each action has a 'name' and 'points')
+    try:
+        # Get the data from the frontend (the selected actions and points)
+        data = request.json
+        user_id = data['user_id']
+        actions = data['actions']  # List of actions (each action has a 'name' and 'points')
 
-    # Connect to the database
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
+        # Connect to the database
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
 
-    # Store the actions in the database for the current day
-    for action in actions:
-        c.execute('INSERT INTO actions (user_id, action_name, points, date) VALUES (?, ?, ?, ?)', 
-                  (user_id, action['name'], action['points'], str(datetime.today().date())))
+        # Store the actions in the database for the current day
+        for action in actions:
+            c.execute('INSERT INTO actions (user_id, action_name, points, date) VALUES (?, ?, ?, ?)', 
+                      (user_id, action['name'], action['points'], str(datetime.today().date())))
 
-    # Update the streak for the user
-    current_streak = get_streak(user_id, c)
-    c.execute('''INSERT OR REPLACE INTO streaks (user_id, current_streak, last_submission) 
-                 VALUES (?, ?, ?)''', (user_id, current_streak + 1, str(datetime.today().date())))
+        # Update the streak for the user
+        current_streak = get_streak(user_id, c)
+        c.execute('''INSERT OR REPLACE INTO streaks (user_id, current_streak, last_submission) 
+                     VALUES (?, ?, ?)''', (user_id, current_streak + 1, str(datetime.today().date())))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    return jsonify({'message': 'Actions submitted successfully', 'points': sum([action['points'] for action in actions])})
+        return jsonify({'message': 'Actions submitted successfully', 'points': sum([action['points'] for action in actions])})
+
+    except Exception as e:
+        print(f"Error: {e}")  # Log the error for debugging
+        return jsonify({'error': str(e)}), 500  # Return an error response
 
 def get_streak(user_id, cursor):
     cursor.execute('SELECT current_streak, last_submission FROM streaks WHERE user_id = ?', (user_id,))

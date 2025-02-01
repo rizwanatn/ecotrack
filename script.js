@@ -153,7 +153,7 @@ const categories = [
         });
       });
   
-      const userId = 1; // For now, set a static user_id (you can adjust this based on your login system)
+      const userId = 1;  // For now, set a static user_id (you can adjust this based on your login system)
   
       // Send data to the backend via a POST request
       fetch('/submit_actions', {
@@ -163,11 +163,17 @@ const categories = [
         },
         body: JSON.stringify({ user_id: userId, actions: actions })
       })
-      .then(response => response.json())
+      .then(response => {
+        // Check if the response is OK (status code 2xx)
+        if (!response.ok) {
+          throw new Error('Failed to submit actions');
+        }
+        return response.json();  // Parse the JSON response
+      })
       .then(data => {
         console.log('Submission successful:', data);
         resetDailyPoints();
-        alert(data.message);
+        alert(data.message);  // Display success message
       })
       .catch(error => {
         console.error('Error:', error);
@@ -184,3 +190,4 @@ const categories = [
   categories.forEach(createCategory);
   
   submitButton.addEventListener("click", submitAction);
+  
